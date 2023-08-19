@@ -26,7 +26,7 @@ function Header() {
 
   return (
     <header
-      className={`bg-[#202002] text-white ${
+      className={`${
         visible ? 'opacity-100' : 'opacity-0'
       } transition-opacity duration-300 ease-in-out max-w-7xl mx-auto px-4 rounded-lg shadow-lg`}
     >
