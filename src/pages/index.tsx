@@ -14,12 +14,17 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { get } from 'http';
 
-export default function Home() {
+//fetch data
+import { client } from '@/lib/sanity';
+
+export default function Home({ data }) {
+  console.log(data);
   return (
     <main className=' h-screen'>
       <header className='top-0 border-b-2 border-gray-200 h-16  '>
-        <nav className='flex justify-between max-w-7xl items items-center'>
+        <nav className='flex justify-between max-w-7xl items items-center mx-auto'>
           <div>Logo</div>
           <ul className='flex space-x-7'>
             <li>About Us</li>
@@ -35,38 +40,21 @@ export default function Home() {
             <h1 className='text-5xl font-bold text-gray-800'>
               We are a modern digital agency
             </h1>
-            <div>
-              <Accordion type='single' collapsible>
-                <AccordionItem value='item-1'>
-                  <AccordionTrigger>
-                    What incentives are available?
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    To find out about the available incentives please fill out
-                    our contact form.
-                  </AccordionContent>
-                  <AccordionTrigger>
-                    What types of homes are suitable for solar panels
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    Homes suitable for solar panels depend on a variety of
-                    factors. Perferred roofing includes southward facing roofs,
-                    roofs angled 10-40%, and limited tree coverings.
-                  </AccordionContent>
-                  <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                  <AccordionContent>
-                    Yes. It adheres to the WAI-ARIA design pattern.
-                  </AccordionContent>
-                  <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                  <AccordionContent>
-                    Yes. It adheres to the WAI-ARIA design pattern.
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
+            <div></div>
+            <div></div>
           </div>
         </div>
       </div>
     </main>
   );
+}
+
+export async function getStaticProps() {
+  const query = `*[_type == 'post']`;
+
+  const data = await client.fetch(query);
+
+  return {
+    props: { data },
+  };
 }
