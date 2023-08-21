@@ -2,11 +2,6 @@ import Image from 'next/image';
 import Header from '../components/header';
 import Showcase from '../components/showcase';
 import Pricing from '../components/pricing';
-import { FaBars } from 'react-icons/fa';
-
-//header
-import { useState, useEffect } from 'react';
-import { BiX } from 'react-icons/bi';
 
 //accordian
 import {
@@ -20,63 +15,33 @@ import { get } from 'http';
 //fetch data
 import { client } from '@/lib/sanity';
 
+//showcase
+import { Button } from '@/components/ui/button';
+
 export default function Home({ data }) {
   console.log(data);
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.classList.add('overflow-hidden');
-    } else {
-      document.body.classList.remove('overflow-hidden');
-    }
-  }, [isMobileMenuOpen]);
-
   return (
-    <main className=' h-screen'>
-      <header className='top-0 border-b-2 border-gray-200 h-16  '>
-        <nav className='flex justify-between max-w-7xl items items-center mx-auto'>
-          <div>Logo</div>
-          <div className='pr-4 pt-4'>
-            <ul className='hidden sm:flex space-x-7'>
-              <li>About Us</li>
-              <li>Pricing</li>
-              <li>FAQ</li>
-              <li>Contact Us</li>
-            </ul>
-            <button
-              className='block sm:hidden'
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent the event from bubbling to the document
-                setIsMobileMenuOpen(!isMobileMenuOpen);
-              }}
-            >
-              <FaBars />
-            </button>
-          </div>
-        </nav>
-      </header>
-      <div className='relative'>
-        {isMobileMenuOpen && (
-          <div className='absolute border border-black bg-white z-10 w-full'>
-            <ul>
-              <li className='text-center border-b'>About Us</li>
-              <li className='text-center border-b'>Pricing</li>
-              <li className='text-center border-b'>FAQ</li>
-              <li className='text-center'>Contact Us</li>
-            </ul>
-          </div>
-        )}
+    <main className=' h-screen max-w-5xl mx-auto'>
+      <div className='my-5'>
+        <Header />
       </div>
-      <div>showcase</div>
+      <div className='my-3 mx-2'>
+        <h1 className='items-center'>Shift into Solar Energy</h1>
+        <h2>
+          We are the #1 installers of Solar Panels in the GTA. Find out how you
+          can shift into Solar!
+        </h2>
+        <Button variant='outline' size='sm'>
+          Contact Us
+        </Button>
+      </div>
       <div>Solar Panels </div>
       <div>Why Us</div>
-      <div>contact us</div>
+      <div>
+        <h2>Contact Us</h2>
+        <p>Get in touch with us today!</p>
+      </div>
       <div>faq</div>
     </main>
   );
