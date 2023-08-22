@@ -32,46 +32,47 @@ function Header() {
       document.removeEventListener('click', handleDocumentClick);
     };
   }, [isMobileMenuOpen]);
+
   return (
-    <div className='bg-gradient-to-r from-gray-500 to-white border border-gray-200 h-16 rounded-lg'>
-      <header className=' '>
-        <nav className='flex justify-between  items items-center'>
-          <div className=''>
-            <Image src='/logo.png' alt='logo' width={100} height={30} />
+    <div className='top-10 relative z-10 bg-white w-2/3 mx-auto border rounded-xl'>
+      <header className=''>
+        <nav className='flex flex-row items-center justify-between'>
+          <div className='flex flex-row'>
+            <Image src='/logo.png' width={100} height={100} alt='logo' />
+            <div className='bottom-2 text-6xl py-1 sm:hidden'>Solar Shift</div>
           </div>
-          <div className='pr-4 pt-4'>
-            <ul className='hidden sm:flex space-x-7'>
-              <li className='hover:underline hover:cursor-pointer'>About Us</li>
-              <li className='hover:underline hover:cursor-pointer'>Pricing</li>
-              <li className='hover:underline hover:cursor-pointer'>FAQ</li>
-              <li className='hover:underline hover:cursor-pointer'>
-                Contact Us
-              </li>
-            </ul>
-            <button
-              className='block sm:hidden my-auto '
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent the event from bubbling to the document
-                setIsMobileMenuOpen(!isMobileMenuOpen);
-              }}
-            >
-              <FaBars size={35} />
-            </button>
-          </div>
+          <ul className='flex row gap-3 pr-5'>
+            <li className='hover:underline hover:cursor-pointer'>About Us</li>
+            <li className='hover:underline hover:cursor-pointer'>Pricing</li>
+            <li className='hover:underline hover:cursor-pointer'>FAQ</li>
+            <li className='hover:underline hover:cursor-pointer'>Contact Us</li>
+          </ul>
+          {/* Show the hamburger icon only on mobile */}
+          <button
+            className='block sm:hidden'
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleMobileMenu();
+            }}
+          >
+            {isMobileMenuOpen ? <BiX /> : <FaBars />}
+          </button>
         </nav>
       </header>
-      <div className='relative'>
-        {isMobileMenuOpen && (
-          <div className='absolute border border-black bg-white z-100 w-full'>
-            <ul>
-              <li className='text-center border-b  py-2'>About Us</li>
-              <li className='text-center border-b  py-2'>Pricing</li>
-              <li className='text-center border-b  py-2'>FAQ</li>
-              <li className='text-center py-2'>Contact Us</li>
-            </ul>
-          </div>
-        )}
-      </div>
+      {/* Show the mobile menu when isMobileMenuOpen is true */}
+      {isMobileMenuOpen && (
+        <div
+          className='absolute border border-black bg-white z-10 w-full'
+          ref={dropdownRef}
+        >
+          <ul>
+            <li className='text-center border-b py-2'>About Us</li>
+            <li className='text-center border-b py-2'>Pricing</li>
+            <li className='text-center border-b py-2'>FAQ</li>
+            <li className='text-center py-2'>Contact Us</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
