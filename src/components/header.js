@@ -1,76 +1,55 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaBars } from 'react-icons/fa';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { BiX } from 'react-icons/bi';
 
 function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
-  const dropdownRef = useRef(null);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
   };
-
-  const handleDocumentClick = (e) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-      setIsMobileMenuOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.classList.add('overflow-hidden');
-      document.addEventListener('click', handleDocumentClick);
-    } else {
-      document.body.classList.remove('overflow-hidden');
-      document.removeEventListener('click', handleDocumentClick);
-    }
-
-    return () => {
-      document.removeEventListener('click', handleDocumentClick);
-    };
-  }, [isMobileMenuOpen]);
 
   return (
-    <div className='top-10 relative z-10 bg-white w-2/3 mx-auto border rounded-xl'>
-      <header className=''>
-        <nav className='flex flex-row items-center justify-between'>
-          <div className='flex flex-row'>
-            <Image src='/logo.png' width={100} height={100} alt='logo' />
-            <div className='bottom-2 text-6xl py-1 sm:hidden'>Solar Shift</div>
+    <div>
+      <header className='fixed w-full top-2 h-16 z-100 bg-transparent'>
+        <div className='flex flex-row justify-between mx-auto items-center bg-white border rounded-3xl shadow-lg w-5/6'>
+          <div>
+            <Image src='/logo.png' width={128} height={46} alt='logo' />
           </div>
-          <ul className='flex row gap-3 pr-5'>
-            <li className='hover:underline hover:cursor-pointer'>About Us</li>
-            <li className='hover:underline hover:cursor-pointer'>Pricing</li>
-            <li className='hover:underline hover:cursor-pointer'>FAQ</li>
-            <li className='hover:underline hover:cursor-pointer'>Contact Us</li>
-          </ul>
-          {/* Show the hamburger icon only on mobile */}
-          <button
-            className='block sm:hidden'
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleMobileMenu();
-            }}
-          >
-            {isMobileMenuOpen ? <BiX /> : <FaBars />}
+          <nav className='hidden sm:block'>
+            <ul className='flex flex-row space-x-7'>
+              <li>About Us</li>
+              <li>Pricing</li>
+              <li>FAQ</li>
+            </ul>
+          </nav>
+          <div className='hidden sm:block pr-4'>Contact Us</div>
+          <button className='sm:hidden pr-4' onClick={toggleMenu}>
+            <FaBars className='text-xl transform scale-125' />
           </button>
-        </nav>
+        </div>
       </header>
-      {/* Show the mobile menu when isMobileMenuOpen is true */}
-      {isMobileMenuOpen && (
-        <div
-          className='absolute border border-black bg-white z-10 w-full'
-          ref={dropdownRef}
-        >
-          <ul>
-            <li className='text-center border-b py-2'>About Us</li>
-            <li className='text-center border-b py-2'>Pricing</li>
-            <li className='text-center border-b py-2'>FAQ</li>
-            <li className='text-center py-2'>Contact Us</li>
-          </ul>
+      {showMenu && (
+        <div className='fixed z-101 top-0 bottom-0 left-0 right-0 w-screen h-screen bg-black text-white opacity-70 '>
+          <div className='flex flex-row justify-between'>
+            <div className='ml-3 mt-3'>
+              <Image src='/logo.png' width={64} height={23} alt='logo' />
+            </div>
+            <button
+              onClick={toggleMenu}
+              className='border-4 p-2 mt-3 mr-3 border-[#39E991]'
+            >
+              close
+            </button>
+          </div>
+          <div className='bg-white h-1 w-1/2 mx-auto my-5 opacity-50 rounded-4xl'></div>
+          <div className='flex flex-col items-center gap-10 mt-5'>
+            <div>About Us</div>
+            <div>Pricing</div>
+            <div>FAQ</div>
+          </div>
         </div>
       )}
     </div>
