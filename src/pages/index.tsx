@@ -6,9 +6,6 @@ import { useState } from 'react';
 //fetch data
 import { client } from '@/lib/sanity';
 
-//framer
-import { motion } from 'framer-motion';
-
 export default function Home({ data }) {
   console.log(data);
 
@@ -65,9 +62,19 @@ export default function Home({ data }) {
 
         <section className='bg-gray-800 h-full'>
           <div
-            className='bg-local bg-cover bg-center w-screen h-screen'
+            className='bg-local bg-cover bg-center w-screen h-screen flex items-center justify-center text-white'
             style={{ backgroundImage: `url(/Showcase.jpg)` }}
-          ></div>
+          >
+            <div className=''>
+              <h2 className='text-6xl font-bold italic mb-10'>
+                Going Solar has never been so easy!
+              </h2>
+              <p className=''>
+                Discover government incentives that make going Solar more
+                afforadable than ever!
+              </p>
+            </div>
+          </div>
         </section>
         <section className='my-10 '>
           <div className='flex justify-center items-center '>
@@ -146,14 +153,7 @@ export default function Home({ data }) {
             style={{ backgroundImage: `url(/Aboutus.jpg)` }}
           >
             <div className='absolute top-20 left-20'>
-              <motion.h2
-                className='text-4xl mb-4'
-                initial={{ x: '-100vw' }}
-                animate={{ x: 0 }}
-                transition={{ duration: 1 }}
-              >
-                Why us?
-              </motion.h2>{' '}
+              <h2 className='text-4xl mb-4'>Why us?</h2>
               <div className=''>
                 <p className=''>
                   Mission: To help us transition to sustainable energy one roof
@@ -172,18 +172,24 @@ export default function Home({ data }) {
           </div>
         </section>
 
-        <section className='bg-white'>
-          <h2 className='p-5 text4xl italic bg-orange-500'>
+        <section className='bg-gray-800 my-5'>
+          <h2 className='p-5 text-4xl italic bg-orange-500 my-5'>
             Get a Free Consult Now!
           </h2>
-          <div>
-            <p>
+          <div className='text-white content-center flex flex-col gap-5 justify-center items-center'>
+            <p className='p-5'>
               Our team at Solar Shift are eager to help you achieve you dream of
               going solar. If you share the same passion as we do, do not
               hesitate, contact us NOW!
             </p>
-            <p>Email: sales@SolarShift.ca</p>
-            <p>Phone: 1-888-888-8888</p>
+            <div>
+              <h3 className='bg-orange-500'>Email: </h3>
+              <span>sales@SolarShift.ca</span>
+            </div>
+            <div>
+              <h3 className='bg-orange-500'>Phone: </h3>
+              <span>1-888-888-8888</span>
+            </div>
           </div>
         </section>
 
