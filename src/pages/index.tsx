@@ -1,7 +1,16 @@
 import Image from 'next/image';
 import Header from '../components/header';
 import { FaBars } from 'react-icons/fa';
-import { useState } from 'react';
+import {
+  AiOutlineInstagram,
+  AiOutlinePhone,
+  AiOutlineMail,
+} from 'react-icons/ai';
+import { MdOutlineSms } from 'react-icons/md';
+import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+
+import { motion } from 'framer-motion';
 
 //fetch data
 import { client } from '@/lib/sanity';
@@ -9,29 +18,68 @@ import { client } from '@/lib/sanity';
 export default function Home({ data }) {
   console.log(data);
 
+  const smoothScroll = (id) => {
+    const element = document.getElementById(id);
+
+    const y = element.getBoundingClientRect().top + window.pageYOffset;
+
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  };
+
   const [showMenu, setShowMenu] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
+  //carosel
+
   return (
     <main className='h-full bg-gray-800'>
       <div className='h-full'>
         <div>
-          <header className='fixed w-full top-2 h-16 z-100 bg-transparent'>
-            <div className='flex flex-row justify-between mx-auto items-center bg-white border rounded-3xl shadow-lg w-5/6'>
-              <div>
-                <Image src='/logo.png' width={128} height={46} alt='logo' />
+          <header className='fixed w-full top-2 h-20 z-1010 bg-transparent'>
+            <div className='flex flex-row justify-around mx-auto items-center bg-white border rounded-3xl shadow-lg w-5/6'>
+              <div className='relative'>
+                <div className='hover:cursor-pointer'>
+                  <Link href='/'>
+                    <Image src='/logo.png' width={128} height={46} alt='logo' />
+                  </Link>
+                </div>
+                <div className='hover:cursor-pointer absolute top-0'>
+                  <Link href='/'>
+                    <Image
+                      src='/solarshiftblack.png'
+                      width={512}
+                      height={160}
+                      alt='Solar Shift'
+                    />
+                  </Link>
+                </div>
               </div>
-              <nav className='hidden sm:block'>
-                <ul className='flex flex-row space-x-7'>
-                  <li>About Us</li>
-                  <li>Pricing</li>
-                  <li>FAQ</li>
+              <nav className='hidden sm:flex flex-row gap-3 pr-5'>
+                <ul className=''>
+                  <motion.a
+                    className='hover:cursor-pointer'
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => smoothScroll('AboutUs')}
+                  >
+                    About Us
+                  </motion.a>
                 </ul>
+                <div className=''>
+                  <motion.a
+                    className='hover:cursor-pointer'
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => smoothScroll('ContactUs')}
+                  >
+                    Contact Us
+                  </motion.a>
+                </div>
               </nav>
-              <div className='hidden sm:block pr-4'>Contact Us</div>
+
               <button className='sm:hidden pr-4' onClick={toggleMenu}>
                 <FaBars className='text-xl transform scale-125' />
               </button>
@@ -60,7 +108,7 @@ export default function Home({ data }) {
           )}
         </div>
 
-        <section className='bg-gray-800 h-full'>
+        <section id='Showcase' className='bg-gray-800 h-full'>
           <div
             className='bg-local bg-cover bg-center w-screen h-screen flex items-center justify-center text-white'
             style={{ backgroundImage: `url(/Showcase.jpg)` }}
@@ -73,6 +121,16 @@ export default function Home({ data }) {
                 Discover government incentives that make going Solar more
                 afforadable than ever!
               </p>
+              <div className='flex justify-center items-center mt-20'>
+                <motion.a
+                  className='bg-orange-500 text-white p-5 rounded-2xl text-2xl hover:cursor-pointer font-bold italic'
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => smoothScroll('ContactUs')}
+                >
+                  GET A FREE CONSULT
+                </motion.a>
+              </div>
             </div>
           </div>
         </section>
@@ -82,126 +140,159 @@ export default function Home({ data }) {
               WHY GO SOLAR?
             </h2>
           </div>
-          <div className='border border-green-500 rounded-3xl p-4 w-3/4 mx-auto my-10 h-1/2 w-1/2 flex sm:flex-row flex-col sm:gap-5 '>
-            <div className='rounded'>
-              <Image
-                src={'/Incentives.jpg'}
-                width={500}
-                height={500}
-                alt='Government Rebates'
-              />
-            </div>
-            <div className='p-2 mx-auto sm:w-1/2'>
-              <h3 className='text-white item-center text-3xl mb-3 italic'>
-                Government Rebates
-              </h3>
-              <p className='text-white  item-center'>
-                Receive up to $5600 when you install solar panels on your home.
-                Depending on your location you may be eligible for additional
-                funding
-              </p>
-            </div>
-          </div>
-
-          <div className='border border-green-500 rounded-3xl p-4 w-3/4 mx-auto my-10 h-1/2 w-1/2 flex sm:flex-row flex-col sm:gap-5 '>
-            <div className='rounded'>
-              <Image
-                src={'/GreenInitiatives.jpg'}
-                width={500}
-                height={500}
-                alt='Green Initiatives'
-              />
-            </div>
-            <div className='p-2 mx-auto sm:w-1/2'>
-              <h3 className='text-white item-center text-3xl mb-3 italic'>
-                Join Canada's Green Initiatives!
-              </h3>
-              <p className='text-white  item-center'>
-                Be one of the many pround Canadian homeowners who are helping
-                our country reach its goal of net-zero emissions by 2050
-              </p>
-            </div>
-          </div>
-
-          <div className='border border-green-500 rounded-3xl p-4 w-3/4 mx-auto my-10 h-1/2 w-1/2 flex sm:flex-row flex-col sm:gap-5 '>
-            <div className='rounded'>
-              <Image
-                src={'/SaveMoney.jpg'}
-                width={500}
-                height={500}
-                alt='Save Money'
-              />
-            </div>
-            <div className='p-2 mx-auto sm:w-1/2'>
-              <h3 className='text-white item-center text-3xl mb-3 italic'>
-                Save Money
-              </h3>
-              <p className='text-white  item-center'>
-                Did you know the excess energy you produce can be sold back to
-                the hydro company?
-                <br />
-                This is called Net Metering and it can save you hundreds of
-                dollars a year!
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <div
-            className='bg-local bg-cover bg-center w-screen h-screen relative'
-            style={{ backgroundImage: `url(/Aboutus.jpg)` }}
-          >
-            <div className='absolute top-20 left-20'>
-              <h2 className='text-4xl mb-4'>Why us?</h2>
-              <div className=''>
-                <p className=''>
-                  Mission: To help us transition to sustainable energy one roof
-                  at a time!
+          <div className='carousel-container '>
+            <div
+              className=' bg-repeat-x w-screen h-screen flex items-center justify-center text-white opacity-10 absolute'
+              style={{ backgroundImage: `url(/logo.png)` }}
+            ></div>
+            <div className='border border-green-500 rounded-3xl p-4 w-3/4 mx-auto my-10 h-1/2 w-1/2 flex sm:flex-row flex-col sm:gap-5 '>
+              <div className='rounded'>
+                <Image
+                  src={'/Incentives.jpg'}
+                  width={500}
+                  height={500}
+                  alt='Government Rebates'
+                />
+              </div>
+              <div className='p-2 mx-auto sm:w-1/2'>
+                <h3 className='text-white item-center text-3xl mb-3 italic'>
+                  Government Rebates
+                </h3>
+                <p className='text-white  item-center'>
+                  Receive up to $5600 when you install solar panels on your
+                  home. Depending on your location you may be eligible for
+                  additional funding
                 </p>
-                <p>
-                  Our goal is to make the transition to Solar as easy as
-                  possible.
+              </div>
+            </div>
+            <div className='border border-green-500 rounded-3xl p-4 w-3/4 mx-auto my-10 h-1/2 w-1/2 flex sm:flex-row flex-col sm:gap-5 '>
+              <div className='rounded'>
+                <Image
+                  src={'/GreenInitiatives.jpg'}
+                  width={500}
+                  height={500}
+                  alt='Green Initiatives'
+                />
+              </div>
+              <div className='p-2 mx-auto sm:w-1/2'>
+                <h3 className='text-white item-center text-3xl mb-3 italic'>
+                  Join Canada's Green Initiatives!
+                </h3>
+                <p className='text-white item-center'>
+                  Be one of the many pround Canadian homeowners who are helping
+                  our country reach its goal of net-zero emissions by 2050
                 </p>
-                <p>
-                  Our team of experts will guide you through the process from
-                  start to finish.
+              </div>
+            </div>
+            <div className='border border-green-500 rounded-3xl p-4 w-3/4 mx-auto my-10 h-1/2 w-1/2 flex sm:flex-row flex-col sm:gap-5 '>
+              <div className='rounded'>
+                <Image
+                  src={'/SaveMoney.jpg'}
+                  width={500}
+                  height={500}
+                  alt='Save Money'
+                />
+              </div>
+              <div className='p-2 mx-auto sm:w-1/2'>
+                <h3 className='text-white item-center text-3xl mb-3 italic'>
+                  Save Money
+                </h3>
+                <p className='text-white  item-center'>
+                  Did you know the excess energy you produce can be sold back to
+                  the hydro company?
+                  <br />
+                  This is called Net Metering and it can save you hundreds of
+                  dollars a year!
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className='bg-gray-800 my-5'>
-          <h2 className='p-5 text-4xl italic bg-orange-500 my-5'>
-            Get a Free Consult Now!
-          </h2>
-          <div className='text-white content-center flex flex-col gap-5 justify-center items-center'>
-            <p className='p-5'>
-              Our team at Solar Shift are eager to help you achieve you dream of
-              going solar. If you share the same passion as we do, do not
-              hesitate, contact us NOW!
+        <section id='AboutUs'>
+          <div
+            className='bg-local bg-cover bg-center w-screen h-screen  flex flex-col items-center justify-center text-black sm:items-start sm:justify-start'
+            style={{ backgroundImage: `url(/Aboutus.jpg)` }}
+          >
+            <h2 className='text-5xl m-4 p-2 font-bold italic sm:text-center '>
+              WHY US?
+            </h2>
+            <p className='m-4 p-2 sm:text-center'>
+              Mission: To help us transition to sustainable energy one roof at a
+              time!
             </p>
-            <div>
-              <h3 className='bg-orange-500'>Email: </h3>
-              <span>sales@SolarShift.ca</span>
-            </div>
-            <div>
-              <h3 className='bg-orange-500'>Phone: </h3>
-              <span>1-888-888-8888</span>
+            <p className='m-4 p-2 sm:text-center'>
+              Our goal is to make the transition to Solar as easy as possible.
+            </p>
+            <p className='m-4 p-2 sm:text-center'>
+              Our team of experts will guide you through the process from start
+              to finish.
+            </p>
+          </div>
+        </section>
+
+        <section
+          id='ContactUs'
+          className='bg-gray-800 my-5 flex flex-row justify-evenly items-center gap-10 mx-auto'
+        >
+          <div>
+            <Image src='/ContactUs.jpg' width={640} height={360} alt='logo' />
+          </div>
+          <div>
+            <h2 className='text-4xl italic font-bold text-white '>
+              GET A FREE CONSULT NOW!
+            </h2>
+            <div className='text-white content-center flex flex-col gap-5 justify-center items-center'>
+              <p className='p-5'>
+                Our team at Solar Shift are eager to help you achieve your dream
+                of going solar. If you share the same passion as we do, do not
+                hesitate, contact us NOW!
+              </p>
+              <a
+                href='tel:+18888888888'
+                className='bg-blue-500 text-white text-2xl p-2 rounded'
+              >
+                Call Us
+                <AiOutlinePhone className='inline-block text-3xl ml-2' />
+              </a>
+              <a
+                href='sms:+18888888888'
+                className='bg-green-500 text-white p-2 rounded text-2xl'
+              >
+                Text Us
+                <MdOutlineSms className='inline-block text-3xl ml-2' />
+              </a>
+              <a
+                href='mailto:email@example.com'
+                className='bg-red-500 text-white p-2 rounded text-2xl'
+              >
+                Email Us
+                <AiOutlineMail className='inline-block text-3xl ml-2' />
+              </a>
             </div>
           </div>
         </section>
 
         <footer>
-          <div className='flex flex-row bg-black h-28 text-white justify-evenly'>
-            <Image src='/logo.png' width={128} height={90} alt='logo' />
+          <div className='flex flex-row bg-black text-white justify-evenly p-5 my-10 h-[200px]'>
+            <div className='w-22 h-22'>
+              <Image
+                src='/solarshift.png'
+                width={160}
+                height={100}
+                alt='logo'
+              />
+            </div>
+
             <div>
               <div>Address: 123 Fake St, Toronto Ontario</div>
               <div>Phone: 905-555-5555</div>
             </div>
             <div>
               <div>Email: Sales@solarshift.ca</div>
+              <div>
+                <AiOutlineInstagram className='text-xl transform scale-500' />
+              </div>
               <div>Tearms of Service</div>
               <div>Privacy Policy</div>
             </div>
