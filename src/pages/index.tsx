@@ -58,7 +58,7 @@ export default function Home({ data }) {
                 </div>
               </div>
               <nav className='hidden sm:flex flex-row gap-3 pr-5'>
-                <ul className=''>
+                <div className=''>
                   <motion.a
                     className='hover:cursor-pointer'
                     whileHover={{ scale: 1.1 }}
@@ -67,7 +67,10 @@ export default function Home({ data }) {
                   >
                     About Us
                   </motion.a>
-                </ul>
+                </div>
+                <div className=''>
+                  <Link href='/blog'>Blog</Link>
+                </div>
                 <div className=''>
                   <motion.a
                     className='hover:cursor-pointer'
@@ -100,9 +103,55 @@ export default function Home({ data }) {
               </div>
               <div className='bg-white h-1 w-1/2 mx-auto my-5 opacity-50 rounded-4xl'></div>
               <div className='flex flex-col items-center gap-10 mt-5'>
-                <div>About Us</div>
-                <div>Pricing</div>
-                <div>FAQ</div>
+                <motion.a
+                  className='hover:cursor-pointer'
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    smoothScroll('AboutUs');
+                    toggleMenu();
+                  }}
+                >
+                  About Us
+                </motion.a>
+                <motion.a
+                  className='hover:cursor-pointer'
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    smoothScroll('ContactUs');
+                    toggleMenu();
+                  }}
+                >
+                  Contact Us
+                </motion.a>{' '}
+              </div>
+              <div className='bg-white h-1 w-1/2 mx-auto my-5 opacity-50 rounded-4xl'></div>
+              <div className='inline-block'>
+                <a
+                  href='tel:+18888888888'
+                  className=' text-white text-2xl p-2 rounded'
+                >
+                  <AiOutlinePhone className='inline-block text-3xl ml-2' />
+                </a>
+                <a
+                  href='sms:+18888888888'
+                  className=' text-white p-2 rounded text-2xl'
+                >
+                  <MdOutlineSms className='inline-block text-3xl ml-2' />
+                </a>
+                <a
+                  href='mailto:email@example.com'
+                  className=' text-white p-2 rounded text-2xl'
+                >
+                  <AiOutlineMail className='inline-block text-3xl ml-2' />
+                </a>
+                <a
+                  href='https://www.instagram.com/solarshift.ca/'
+                  className=' text-white p-2 rounded text-2xl'
+                >
+                  <AiOutlineInstagram className='inline-block text-3xl ml-2' />
+                </a>
               </div>
             </div>
           )}
@@ -214,67 +263,76 @@ export default function Home({ data }) {
             className='bg-local bg-cover bg-center w-screen h-screen  flex flex-col items-center justify-center text-black sm:items-start sm:justify-start'
             style={{ backgroundImage: `url(/Aboutus.jpg)` }}
           >
-            <h2 className='text-5xl m-4 p-2 font-bold italic sm:text-center '>
-              WHY US?
-            </h2>
-            <p className='m-4 p-2 sm:text-center'>
-              Mission: To help us transition to sustainable energy one roof at a
-              time!
-            </p>
-            <p className='m-4 p-2 sm:text-center'>
-              Our goal is to make the transition to Solar as easy as possible.
-            </p>
-            <p className='m-4 p-2 sm:text-center'>
-              Our team of experts will guide you through the process from start
-              to finish.
-            </p>
+            <div className='border-white rounded-2xl p-10 justify-center items-center'>
+              <h2 className='text-5xl m-4 p-2 font-bold italic sm:text-center '>
+                WHY US?
+              </h2>
+              <p className='m-4 p-2 sm:text-center'>
+                Mission: To help us transition to sustainable energy one roof at
+                a time!
+              </p>
+              <p className='m-4 p-2 sm:text-center'>
+                Our goal is to make the transition to Solar as easy as possible.
+              </p>
+              <p className='m-4 p-2 sm:text-center'>
+                Our team of experts will guide you through the process from
+                start to finish.
+              </p>
+            </div>
           </div>
         </section>
 
-        <section
-          id='ContactUs'
-          className='bg-gray-800 my-5 flex flex-row justify-evenly items-center gap-10 mx-auto'
-        >
-          <div>
-            <Image src='/ContactUs.jpg' width={640} height={360} alt='logo' />
-          </div>
-          <div>
-            <h2 className='text-4xl italic font-bold text-white '>
-              GET A FREE CONSULT NOW!
+        <section id='ContactUs' className=''>
+          <div className='bg-orange-500 p-3'>
+            <h2 className='text-5xl text-center font-bold italic '>
+              GET A FREE CONSULT
             </h2>
-            <div className='text-white content-center flex flex-col gap-5 justify-center items-center'>
-              <p className='p-5'>
+          </div>
+          <div className='border border-green-500 rounded-3xl p-4 w-3/4 mx-auto my-10 h-1/2 w-1/2 flex sm:flex-row flex-col sm:gap-5 '>
+            <div className='p-2 mx-auto sm:w-1/2'>
+              <h2 className='text-white item-center text-4xl mb-3 italic font-bold'>
+                Contact Us
+              </h2>
+              <p className='text-white  item-center mb-10'>
                 Our team at Solar Shift are eager to help you achieve your dream
                 of going solar. If you share the same passion as we do, do not
                 hesitate, contact us NOW!
               </p>
               <a
                 href='tel:+18888888888'
-                className='bg-blue-500 text-white text-2xl p-2 rounded'
+                className='bg-blue-500 text-white text-2xl p-2 rounded mx-2'
               >
                 Call Us
                 <AiOutlinePhone className='inline-block text-3xl ml-2' />
               </a>
               <a
                 href='sms:+18888888888'
-                className='bg-green-500 text-white p-2 rounded text-2xl'
+                className='bg-green-500 text-white p-2 rounded text-2xl mx-2'
               >
                 Text Us
                 <MdOutlineSms className='inline-block text-3xl ml-2' />
               </a>
               <a
                 href='mailto:email@example.com'
-                className='bg-red-500 text-white p-2 rounded text-2xl'
+                className='bg-red-500 text-white p-2 rounded text-2xl mx-2'
               >
                 Email Us
                 <AiOutlineMail className='inline-block text-3xl ml-2' />
               </a>
             </div>
+            <div className='rounded'>
+              <Image
+                src={'/ContactUs.jpg'}
+                width={500}
+                height={500}
+                alt='Contact Us'
+              />
+            </div>
           </div>
         </section>
 
         <footer>
-          <div className='flex flex-row bg-black text-white justify-evenly p-5 my-10 h-[200px]'>
+          <div className='flex flex-col gap-3 sm:flex-row bg-black text-white sm:justify-evenly p-5 my-10 h-[400px] sm:h-[200px]'>
             <div className='w-22 h-22'>
               <Image
                 src='/solarshift.png'
@@ -284,15 +342,38 @@ export default function Home({ data }) {
               />
             </div>
 
-            <div>
-              <div>Address: 123 Fake St, Toronto Ontario</div>
-              <div>Phone: 905-555-5555</div>
+            <div className='flex flex-col gap-2'>
+              <div>123 Fake St, Toronto Ontario</div>
+              <div>905-555-5555</div>
+              <div>Sales@solarshift.ca</div>
+              <div className='inline-block'>
+                <a
+                  href='tel:+18888888888'
+                  className=' text-white text-2xl p-2 rounded'
+                >
+                  <AiOutlinePhone className='inline-block text-3xl ml-2' />
+                </a>
+                <a
+                  href='sms:+18888888888'
+                  className=' text-white p-2 rounded text-2xl'
+                >
+                  <MdOutlineSms className='inline-block text-3xl ml-2' />
+                </a>
+                <a
+                  href='mailto:email@example.com'
+                  className=' text-white p-2 rounded text-2xl'
+                >
+                  <AiOutlineMail className='inline-block text-3xl ml-2' />
+                </a>
+                <a
+                  href='https://www.instagram.com/solarshift.ca/'
+                  className=' text-white p-2 rounded text-2xl'
+                >
+                  <AiOutlineInstagram className='inline-block text-3xl ml-2' />
+                </a>
+              </div>
             </div>
             <div>
-              <div>Email: Sales@solarshift.ca</div>
-              <div>
-                <AiOutlineInstagram className='text-xl transform scale-500' />
-              </div>
               <div>Tearms of Service</div>
               <div>Privacy Policy</div>
             </div>
