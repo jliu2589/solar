@@ -1,9 +1,13 @@
 import { useRouter } from 'next/router';
 import { client } from '@/lib/sanity';
+import { PortableText } from '@portabletext/react';
+import RichTextComponent from '@/components/RichTextComponent';
 
 export default function BlogPost({ post }) {
   const router = useRouter();
   const { slug } = router.query;
+
+  console.log(post.body[0]);
 
   // Fetch your blog post data here based on the `slug`
 
@@ -11,7 +15,7 @@ export default function BlogPost({ post }) {
     <div>
       <h1>{slug}</h1>
       <p>BlooBLAH!</p>
-      <p>{post.body[0]}</p>
+      <PortableText value={post.body} components={RichTextComponent} />
     </div>
   );
 }

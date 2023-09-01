@@ -16,7 +16,7 @@ import { motion } from 'framer-motion';
 import { client } from '@/lib/sanity';
 
 export default function Home({ data }) {
-  console.log(data);
+  console.log(data[0].body);
 
   const smoothScroll = (id) => {
     const element = document.getElementById(id);
